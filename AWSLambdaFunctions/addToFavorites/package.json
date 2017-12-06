@@ -1,0 +1,14 @@
+{
+    "name": "add-to-favorites",
+    "version": "0.1.0",
+    "description": "Adds a book id to a users favorites list in RDS",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "dependencies": {
+      "aws-sdk": ">= 2.0.9",
+      "eslint": "^4.9.0",
+      "pg": ">= 7.3.0"
+    }
+  }

@@ -1,0 +1,15 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+target ‘Chronicle’ do
+  use_frameworks!
+
+  # Pods for Chronicle
+
+  pod 'AWSAuthCore', '~> 2.6.1'
+  pod 'AWSS3', '~> 2.6.1'
+  pod 'AWSPinpoint', '~> 2.6.1'
+  pod 'AWSAuthUI', '~> 2.6.1'
+  pod 'AWSUserPoolsSignIn', '~> 2.6.1'
+  pod 'AWSAPIGateway', '~> 2.6.1'
+end

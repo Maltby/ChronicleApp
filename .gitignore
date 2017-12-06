@@ -1,0 +1,13 @@
+# Swift
+.DS_Store
+.DS_Store?
+build/
+DerivedData/
+
+# Swift - AWS Keys
+awsconfiguration.json
+Info.plist
+Secrets.swift
+
+# Node JS
+secrets.js

@@ -1,0 +1,43 @@
+PODS:
+  - AWSAPIGateway (2.6.7):
+    - AWSCore (= 2.6.7)
+  - AWSAuthCore (2.6.7):
+    - AWSCore (= 2.6.7)
+  - AWSAuthUI (2.6.7):
+    - AWSAuthCore (= 2.6.7)
+    - AWSCore (= 2.6.7)
+  - AWSCognitoIdentityProvider (2.6.7):
+    - AWSCognitoIdentityProviderASF (= 1.0.0)
+    - AWSCore (= 2.6.7)
+  - AWSCognitoIdentityProviderASF (1.0.0)
+  - AWSCore (2.6.7)
+  - AWSPinpoint (2.6.7):
+    - AWSCore (= 2.6.7)
+  - AWSS3 (2.6.7):
+    - AWSCore (= 2.6.7)
+  - AWSUserPoolsSignIn (2.6.7):
+    - AWSAuthCore (= 2.6.7)
+    - AWSCognitoIdentityProvider (= 2.6.7)
+
+DEPENDENCIES:
+  - AWSAPIGateway (~> 2.6.1)
+  - AWSAuthCore (~> 2.6.1)
+  - AWSAuthUI (~> 2.6.1)
+  - AWSPinpoint (~> 2.6.1)
+  - AWSS3 (~> 2.6.1)
+  - AWSUserPoolsSignIn (~> 2.6.1)
+
+SPEC CHECKSUMS:
+  AWSAPIGateway: f8ddca2959f2b58a0db78b7b86f7b8e5b9e55c41
+  AWSAuthCore: 8948b5618f12e444f7df45b2f9a125699f7e2b77
+  AWSAuthUI: 6788dd69fd5d77e6b085af4d10f7f34057b5e9fb
+  AWSCognitoIdentityProvider: 1ca851a806ff2fd39b9495ddbe77924adfd391a4
+  AWSCognitoIdentityProviderASF: 0b0ea7e25a380e0a7fcd65d9a1d9a553357c0699
+  AWSCore: a5ff5fb202342b922eb9036af9ecc3bc28a032eb
+  AWSPinpoint: b64f5604c57ae318ca20d03f66b7bdce6875d68c
+  AWSS3: cd4aec32f51fc202431e36596d2f535f821788e1
+  AWSUserPoolsSignIn: 146ac8fb0b816355b0d7ddcd6656c137d3c9d4b3
+
+PODFILE CHECKSUM: 2839c7100af82adf74eed630058ac0fbf7df317b
+
+COCOAPODS: 1.3.1
