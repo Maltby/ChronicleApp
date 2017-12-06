@@ -222,18 +222,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         detailVC.book = book
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-//    func handleLogout() {
-//        if (AWSSignInManager.sharedInstance().isLoggedIn) {
-//            AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
-//                self.navigationController!.popToRootViewController(animated: false)
-//                self.setupRightBarButtonItem()
-//                    self.presentSignInViewController()
-//            })
-//        } else {
-//            assert(false)
-//        }
-//    }
 }
 
 class FeatureDescriptionViewController: UIViewController {

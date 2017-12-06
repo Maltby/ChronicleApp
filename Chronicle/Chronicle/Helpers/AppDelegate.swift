@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let remoteNotificationKey = "RemoteNotification"
     var isInitialized: Bool = false
     
+    let secrets = Secrets()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Register the sign in provider instances with their unique identifier
@@ -42,39 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             isInitialized = true
         }
         
-        // OG Users
-        //        "PoolId": "us-east-1_ynGMpXz9K",
-        //        "AppClientId": "1snofqienlah6anr4ua20cb4e5",
-        //        "AppClientSecret": "i59edd3i1128mlhdddiui71nql12ndpeii43ivri4ucb14r59o1",
-        
         let serviceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: nil)
-        let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: "1snofqienlah6anr4ua20cb4e5", clientSecret: "i59edd3i1128mlhdddiui71nql12ndpeii43ivri4ucb14r59o1", poolId: "us-east-1_ynGMpXz9K")
+        let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: secrets.userPoolSecrets["clientId"]!, clientSecret: secrets.userPoolSecrets["clientSecret"]!, poolId: secrets.userPoolSecrets["poolId"]!)
         AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: userPoolConfiguration, forKey: "UserPool")
         let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:3aae265a-9ddd-47c0-8e53-b851dd4d62ac", identityProviderManager:pool)
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: secrets.userPoolSecrets["identityPoolId"]!, identityProviderManager:pool)
         if let id = credentialsProvider.identityId {
             UserSharedInstance.sharedInstance.identityId = id
         }
-        
-        
-//        UserSharedInstance.sharedInstance.identityId = credentialsProvider.identityId!
-        
-        // ChronicleUsersGroup
-//        "PoolId": "us-east-1:74d0efc5-0079-430a-b910-4bcc70bd9754",
-//        "Region": "us-east-1"
-//        "PoolId": "us-east-1_3DOBL31j3",
-//        "AppClientId": "4ce9306lp43950kddfsh4vcnpn",
-//        "AppClientSecret": "",
-//        "Region": "us-east-1"
-        
-//        let serviceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: nil)
-//        let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: "4ce9306lp43950kddfsh4vcnpn", clientSecret: "", poolId: "us-east-1_3DOBL31j3")
-//        AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: userPoolConfiguration, forKey: "UserPool")
-//        let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
-//        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:74d0efc5-0079-430a-b910-4bcc70bd9754", identityProviderManager:pool)
-////        UserSharedInstance.sharedInstance.identityId = credentialsProvider.identityId!
-        
-        
         
         AWSServiceManager.default().defaultServiceConfiguration = AWSServiceConfiguration.init(region: .USEast1, credentialsProvider: credentialsProvider)
         
