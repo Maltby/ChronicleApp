@@ -190,19 +190,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-//    func pushBooksToTableView(books: Array<Any>) {
-//        booksArray = []
-//        for book in books {
-//            let bookResponse = book as! AWSBooksQueryResponse
-//            booksArray.append(bookResponse)
-//        }
-//        DispatchQueue.main.async {
-//            self.activityView.isHidden = true
-//            self.activityIndicator.stopAnimating()
-//            self.mainTableView.reloadData()
-//        }
-//    }
-    
     func setupRightBarButtonItem() {
         navigationItem.rightBarButtonItem = loginButton
         navigationItem.rightBarButtonItem!.target = self

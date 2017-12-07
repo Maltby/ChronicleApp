@@ -17,7 +17,6 @@ import AWSAuthUI
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    var booksArray: [AWSBooksQueryResponse] = []
     var booksArray: [Book] = []
     
     fileprivate let loginButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
