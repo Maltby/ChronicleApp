@@ -16,6 +16,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     var book: Book?
     
+    let secrets = Secrets()
+    
     var isPlaying: Bool = false {
         didSet {
             if isPlaying == false {
@@ -131,9 +133,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         
         presentSignInViewController()
         
-        let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: "us-east-1:3aae265a-9ddd-47c0-8e53-b851dd4d62ac")
-        let configuration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: credentialProvider)
-        AWSS3PreSignedURLBuilder.register(with: configuration!, forKey: "USEast2S3PreSignedURLBuilder")
+        getPreSignedURLCredentials()
         
         if AVPlayerSharedInstance.sharedInstance.book?.id == nil {
             AVPlayerSharedInstance.sharedInstance.book = book
@@ -146,6 +146,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             continueBook()
         }
         loadBookCover()
+    }
+    
+    func getPreSignedURLCredentials() {
+        let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: secrets.preSignedURL["identityPoolId"]!)
+        let configuration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: credentialProvider)
+        AWSS3PreSignedURLBuilder.register(with: configuration!, forKey: secrets.preSignedURL["forKey"]!)
     }
     
     @objc func addToFavorites() {
