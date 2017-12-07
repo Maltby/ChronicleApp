@@ -11,7 +11,7 @@ import AWSAuthCore
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    var booksArray: [AWSBooksQueryResponse] = []
+    var booksArray: [Book] = []
     
     fileprivate let loginButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
@@ -91,22 +91,46 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         mainViewTap = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.dismissKeyboard))
     }
     
-    func querySearchString(queryString: String) {
+    func querySearchString(queryString: String){
         activityView.isHidden = false
         activityView.backgroundColor = UIColor.white
         activityIndicator.startAnimating()
+        awsSearchBooks(queryString: queryString) {
+            (result: [Book]) in
+            self.booksArray = result
+            DispatchQueue.main.async {
+                self.activityView.isHidden = true
+                self.activityIndicator.stopAnimating()
+                self.mainTableView.reloadData()
+            }
+        }
+    }
+    
+    func awsSearchBooks(queryString: String, completion: @escaping (_ result: [Book]) -> Void) {
         let client = AWSSearchTermQueryAPIClient.default()
+        var arrayOfBooks: [Book] = []
         client.rootGet(searchTerm: queryString).continueWith { (task: AWSTask) -> AWSBooksQueryResponse? in
             if let error = task.error {
-                print(error)
+                print("Error occurred: \(error)")
                 return nil
-            } else if let result = task.result {
+            }
+            if let result = task.result {
                 let mutableResults = result.mutableCopy() as! NSArray
-                self.pushBooksToTableView(books: mutableResults as! Array<Any>)
+                if mutableResults != [] {
+                    var tempArray: [Book] = []
+                    for book in mutableResults {
+                        let bookResponse = book as! AWSBooksQueryResponse
+                        let bookObject = Book.init(id: bookResponse.id, title: bookResponse.title, author: bookResponse.author, listens: bookResponse.listens, s3bookcoverlocation: bookResponse.s3bookcoverlocation, s3audiolocation: bookResponse.s3audiolocation)
+                        tempArray.append(bookObject)
+                    }
+                    arrayOfBooks = tempArray
+                    completion(arrayOfBooks)
+                }
             }
             return nil
         }
     }
+    
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if (mainViewTap != nil) {
@@ -166,18 +190,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func pushBooksToTableView(books: Array<Any>) {
-        booksArray = []
-        for book in books {
-            let bookResponse = book as! AWSBooksQueryResponse
-            booksArray.append(bookResponse)
-        }
-        DispatchQueue.main.async {
-            self.activityView.isHidden = true
-            self.activityIndicator.stopAnimating()
-            self.mainTableView.reloadData()
-        }
-    }
+//    func pushBooksToTableView(books: Array<Any>) {
+//        booksArray = []
+//        for book in books {
+//            let bookResponse = book as! AWSBooksQueryResponse
+//            booksArray.append(bookResponse)
+//        }
+//        DispatchQueue.main.async {
+//            self.activityView.isHidden = true
+//            self.activityIndicator.stopAnimating()
+//            self.mainTableView.reloadData()
+//        }
+//    }
     
     func setupRightBarButtonItem() {
         navigationItem.rightBarButtonItem = loginButton

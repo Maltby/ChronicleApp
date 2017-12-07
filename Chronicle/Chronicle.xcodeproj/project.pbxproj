@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2710E8A11FD9CEC5008AEF37 /* BookStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710E8A01FD9CEC5008AEF37 /* BookStore.swift */; };
+		2710E8A31FD9E9A3008AEF37 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710E8A21FD9E9A3008AEF37 /* Book.swift */; };
 		2749096E1FD7E9E600F4B47A /* BookListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749095D1FD7E9E500F4B47A /* BookListTableViewCell.swift */; };
 		2749096F1FD7E9E600F4B47A /* AWSAddToFavoritesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749095F1FD7E9E500F4B47A /* AWSAddToFavoritesClient.swift */; };
 		274909701FD7E9E600F4B47A /* AWSAllBooksQueryAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274909601FD7E9E500F4B47A /* AWSAllBooksQueryAPIClient.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		0F962F3E4149BA338F7E2F0F /* Pods-Chronicle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chronicle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chronicle/Pods-Chronicle.release.xcconfig"; sourceTree = "<group>"; };
+		2710E8A01FD9CEC5008AEF37 /* BookStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookStore.swift; sourceTree = "<group>"; };
+		2710E8A21FD9E9A3008AEF37 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		274909481FD7E7DD00F4B47A /* Chronicle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chronicle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274909571FD7E7DD00F4B47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2749095D1FD7E9E500F4B47A /* BookListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,6 +87,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2710E89F1FD9CE81008AEF37 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2710E8A01FD9CEC5008AEF37 /* BookStore.swift */,
+				2710E8A21FD9E9A3008AEF37 /* Book.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		2749093F1FD7E7DD00F4B47A = {
 			isa = PBXGroup;
 			children = (
@@ -104,11 +117,12 @@
 		2749094A1FD7E7DD00F4B47A /* Chronicle */ = {
 			isa = PBXGroup;
 			children = (
+				2710E89F1FD9CE81008AEF37 /* Objects */,
 				279F9C0A1FD8128C00C53F34 /* TableViewCells */,
 				274909851FD7EA0F00F4B47A /* Storyboard */,
 				2749097F1FD7EA0F00F4B47A /* ViewControllers */,
 				2749095E1FD7E9E500F4B47A /* AWS */,
-				274909671FD7E9E500F4B47A /* Classes */,
+				274909671FD7E9E500F4B47A /* Singletons */,
 				2749096A1FD7E9E500F4B47A /* Helpers */,
 				274909571FD7E7DD00F4B47A /* Info.plist */,
 			);
@@ -130,13 +144,13 @@
 			path = AWS;
 			sourceTree = "<group>";
 		};
-		274909671FD7E9E500F4B47A /* Classes */ = {
+		274909671FD7E9E500F4B47A /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
 				274909681FD7E9E500F4B47A /* AVPlayerSharedInstance.swift */,
 				274909691FD7E9E500F4B47A /* UserSharedInstance.swift */,
 			);
-			path = Classes;
+			path = Singletons;
 			sourceTree = "<group>";
 		};
 		2749096A1FD7E9E500F4B47A /* Helpers */ = {
@@ -337,6 +351,7 @@
 			files = (
 				2749098B1FD7EA0F00F4B47A /* SearchViewController.swift in Sources */,
 				274909891FD7EA0F00F4B47A /* FavoritesViewController.swift in Sources */,
+				2710E8A11FD9CEC5008AEF37 /* BookStore.swift in Sources */,
 				274909711FD7E9E600F4B47A /* AWSBooksQueryResponse.swift in Sources */,
 				274909701FD7E9E600F4B47A /* AWSAllBooksQueryAPIClient.swift in Sources */,
 				274909881FD7EA0F00F4B47A /* DetailViewController.swift in Sources */,
@@ -345,6 +360,7 @@
 				2749096E1FD7E9E600F4B47A /* BookListTableViewCell.swift in Sources */,
 				2749098A1FD7EA0F00F4B47A /* MainViewController.swift in Sources */,
 				2749098F1FD7EC1200F4B47A /* AppDelegate.swift in Sources */,
+				2710E8A31FD9E9A3008AEF37 /* Book.swift in Sources */,
 				274909741FD7E9E600F4B47A /* AWSSearchTermQueryAPIClient.swift in Sources */,
 				2749098C1FD7EA0F00F4B47A /* MainTableViewCell.swift in Sources */,
 				2749096F1FD7E9E600F4B47A /* AWSAddToFavoritesClient.swift in Sources */,

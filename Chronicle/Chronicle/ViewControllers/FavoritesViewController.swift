@@ -11,7 +11,7 @@ import AWSAuthCore
 
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var booksArray: [AWSBooksQueryResponse] = []
+    var booksArray: [Book] = []
     
     fileprivate let loginButton: UIBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
     
@@ -118,33 +118,54 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func queryFavorites() {
+        awsQueryFavoriteBooks() {
+            (result: [Book]) in
+            self.booksArray = result
+            DispatchQueue.main.async {
+                self.activityView.isHidden = true
+                self.activityIndicator.stopAnimating()
+                self.mainTableView.reloadData()
+            }
+        }
+    }
+    
+    func awsQueryFavoriteBooks(completion: @escaping (_ result: [Book]) -> Void) {
         let client = AWSFavoriteBooksQueryAPIClient.default()
-        client.rootGet().continueWith{ (task: AWSTask) -> Any? in
+        var arrayOfBooks: [Book] = []
+        client.rootGet().continueWith{ (task: AWSTask) -> AnyObject? in
             if let error = task.error {
                 print("Error occurred: \(error)")
                 return nil
             }
-            
             if let result = task.result {
                 let mutableResults = result.mutableCopy() as! NSArray
-                self.pushBooksToTableView(books: mutableResults as! Array<Any>)
+                if mutableResults != [] {
+                    var tempArray: [Book] = []
+                    for book in mutableResults {
+                        let bookResponse = book as! AWSBooksQueryResponse
+                        let bookObject = Book.init(id: bookResponse.id, title: bookResponse.title, author: bookResponse.author, listens: bookResponse.listens, s3bookcoverlocation: bookResponse.s3bookcoverlocation, s3audiolocation: bookResponse.s3audiolocation)
+                        tempArray.append(bookObject)
+                    }
+                    arrayOfBooks = tempArray
+                    completion(arrayOfBooks)
+                }
             }
             return nil
         }
     }
     
-    func pushBooksToTableView(books: Array<Any>) {
-        booksArray = []
-        for book in books {
-            let bookResponse = book as! AWSBooksQueryResponse
-            booksArray.append(bookResponse)
-        }
-        DispatchQueue.main.async {
-            self.activityView.isHidden = true
-            self.activityIndicator.stopAnimating()
-            self.mainTableView.reloadData()
-        }
-    }
+//    func pushBooksToTableView(books: Array<Any>) {
+//        booksArray = []
+//        for book in books {
+//            let bookResponse = book as! AWSBooksQueryResponse
+//            booksArray.append(bookResponse)
+//        }
+//        DispatchQueue.main.async {
+//            self.activityView.isHidden = true
+//            self.activityIndicator.stopAnimating()
+//            self.mainTableView.reloadData()
+//        }
+//    }
     
     func setupRightBarButtonItem() {
         navigationItem.rightBarButtonItem = loginButton

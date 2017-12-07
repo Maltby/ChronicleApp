@@ -14,8 +14,8 @@ import AVFoundation
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var book = AWSBooksQueryResponse()
-    
+//    var book = AWSBooksQueryResponse()
+    var book: Book?
     var isPlaying: Bool = false {
         didSet {
             if isPlaying == false {

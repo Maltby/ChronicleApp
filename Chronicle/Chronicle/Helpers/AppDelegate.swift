@@ -28,11 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isInitialized: Bool = false
     
     let secrets = Secrets()
+    var credentialsProvider : AWSCognitoCredentialsProvider?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        // Register the sign in provider instances with their unique identifier
-        
         AWSSignInManager.sharedInstance().register(signInProvider: AWSCognitoUserPoolsSignInProvider.sharedInstance())
         let didFinishLaunching = AWSSignInManager.sharedInstance().interceptApplication(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -48,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: secrets.userPoolSecrets["clientId"]!, clientSecret: secrets.userPoolSecrets["clientSecret"]!, poolId: secrets.userPoolSecrets["poolId"]!)
         AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: userPoolConfiguration, forKey: "UserPool")
         let pool = AWSCognitoIdentityUserPool(forKey: "UserPool")
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: secrets.userPoolSecrets["identityPoolId"]!, identityProviderManager:pool)
-        if let id = credentialsProvider.identityId {
+        credentialsProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: secrets.userPoolSecrets["identityPoolId"]!, identityProviderManager:pool)
+        if let id = credentialsProvider?.identityId {
             UserSharedInstance.sharedInstance.identityId = id
         }
         
@@ -86,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
+    func applicationWillEnterForeground(_ application: UIApplication) {
+//        Update credentials, tokens expire after one hour.
+        self.credentialsProvider?.credentials()
+    }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.

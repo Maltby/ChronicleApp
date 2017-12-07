@@ -11,13 +11,13 @@ import AWSUserPoolsSignIn
 
 class UserSharedInstance: NSObject {
     static let sharedInstance = UserSharedInstance()
-    var identityId = String()
+    var identityId : String?
     
     let secrets = Secrets()
     
     func getIdentityId() -> String {
-        if identityId != nil {
-            return identityId
+        if (identityId != nil) {
+            return identityId!
         } else {
             let serviceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: nil)
             let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: secrets.userPoolSecrets["clientId"]!, clientSecret: secrets.userPoolSecrets["clientSecret"]!, poolId: secrets.userPoolSecrets["poolId"]!)
@@ -28,6 +28,6 @@ class UserSharedInstance: NSObject {
             
             AWSServiceManager.default().defaultServiceConfiguration = AWSServiceConfiguration.init(region: .USEast1, credentialsProvider: credentialsProvider)
         }
-        return identityId
+        return identityId!
     }
 }

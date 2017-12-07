@@ -12,7 +12,7 @@ class AVPlayerSharedInstance: NSObject {
     static let sharedInstance = AVPlayerSharedInstance()
     var player = AVPlayer()
     
-    var book = AWSBooksQueryResponse()
+    var book: Book?
     var currentChapter : Int?
     var isPlaying: Bool = false
     
