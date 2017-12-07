@@ -30,6 +30,7 @@
 		2749098E1FD7EA0F00F4B47A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274909871FD7EA0F00F4B47A /* Main.storyboard */; };
 		2749098F1FD7EC1200F4B47A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749096B1FD7E9E500F4B47A /* AppDelegate.swift */; };
 		279F9C091FD80D2D00C53F34 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F9C081FD80D2D00C53F34 /* Secrets.swift */; };
+		27D243EA1FDA087A00914563 /* SecretsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D243E91FDA087A00914563 /* SecretsExample.swift */; };
 		432B9FA74FFAE19CDA6575C5 /* Pods_Chronicle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D5305DCEFBFE4C3E89ED1C3 /* Pods_Chronicle.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		274909861FD7EA0F00F4B47A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		274909871FD7EA0F00F4B47A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		279F9C081FD80D2D00C53F34 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		27D243E91FDA087A00914563 /* SecretsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretsExample.swift; sourceTree = "<group>"; };
 		5D5305DCEFBFE4C3E89ED1C3 /* Pods_Chronicle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chronicle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC6D59AF7B09641B1CBEDAB /* Pods-Chronicle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chronicle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chronicle/Pods-Chronicle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +161,7 @@
 				2749096B1FD7E9E500F4B47A /* AppDelegate.swift */,
 				2749096C1FD7E9E500F4B47A /* Bridging_Header.h */,
 				279F9C081FD80D2D00C53F34 /* Secrets.swift */,
+				27D243E91FDA087A00914563 /* SecretsExample.swift */,
 				2749097D1FD7EA0300F4B47A /* awsconfiguration.json */,
 				2749096D1FD7E9E500F4B47A /* Images.xcassets */,
 			);
@@ -349,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D243EA1FDA087A00914563 /* SecretsExample.swift in Sources */,
 				2749098B1FD7EA0F00F4B47A /* SearchViewController.swift in Sources */,
 				274909891FD7EA0F00F4B47A /* FavoritesViewController.swift in Sources */,
 				2710E8A11FD9CEC5008AEF37 /* BookStore.swift in Sources */,
