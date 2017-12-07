@@ -218,26 +218,24 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:UITableViewCell? =
+        var reusableCell:UITableViewCell? =
             mainTableView.dequeueReusableCell(withIdentifier: "BookListCell") as? UITableViewCell
-        if (cell == nil)
-        {
-            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "BookListCell")
-        }
+        let cell: UITableViewCell = reusableCell ?? UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "BookListCell")
+        
         let bookItem = booksArray[indexPath.row]
         
-        cell!.textLabel?.numberOfLines = 0
-        cell!.textLabel?.lineBreakMode = .byWordWrapping
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.lineBreakMode = .byWordWrapping
         
-        cell!.detailTextLabel?.numberOfLines = 0
-        cell!.detailTextLabel?.lineBreakMode = .byWordWrapping
+        cell.detailTextLabel?.numberOfLines = 0
+        cell.detailTextLabel?.lineBreakMode = .byWordWrapping
         
-        cell!.textLabel?.text = bookItem.title
-        cell!.detailTextLabel?.text = bookItem.author
+        cell.textLabel?.text = bookItem.title
+        cell.detailTextLabel?.text = bookItem.author
         
-        cell!.setNeedsLayout()
+        cell.setNeedsLayout()
         
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
