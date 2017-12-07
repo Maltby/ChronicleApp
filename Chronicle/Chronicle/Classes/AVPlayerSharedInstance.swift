@@ -19,8 +19,6 @@ class AVPlayerSharedInstance: NSObject {
     func streamBook(url:NSURL) -> CMTime {
         try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])
         print("playing \(url)")
-//        let playerItem = AVPlayerItem(url: url as URL)
-//        player = AVPlayer(playerItem:playerItem)
         do {
             self.player = try AVPlayer(url: url as URL)
         } catch let error as NSError {
@@ -29,7 +27,6 @@ class AVPlayerSharedInstance: NSObject {
             print("AVPlayer init failed")
         }
         
-//        player = AVPlayer.init(url: url as URL)
         let duration = player.currentItem?.asset.duration
         return duration!
     }

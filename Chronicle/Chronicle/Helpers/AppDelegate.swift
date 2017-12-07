@@ -58,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if window?.rootViewController?.childViewControllers[0] as? UITabBarController != nil {
             let tabBarController = window?.rootViewController?.childViewControllers[0] as! UITabBarController
             tabBarController.selectedIndex = 1
-//            tabBarController.tabBar.backgroundColor = UIColor.yellow
         }
         if window?.rootViewController as? UINavigationController != nil {
             let navigationController = window?.rootViewController as! UINavigationController

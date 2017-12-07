@@ -161,7 +161,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (AWSSignInManager.sharedInstance().isLoggedIn) {
                 navigationItem.rightBarButtonItem!.title = NSLocalizedString("Sign-Out", comment: "Label for the logout button.")
-//                navigationItem.rightBarButtonItem!.action = #selector(MainViewController.handleLogout)
             }
     }
     
@@ -183,11 +182,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = mainTableView.dequeueReusableCell(withIdentifier: "MainViewCell", for: indexPath) as! MainTableViewCell
-//        let bookItem = booksArray[indexPath.row]
-//        cell.titleLabel.text = bookItem.title
-//        cell.authorLabel.text = bookItem.author
-//        return cell
         var cell:UITableViewCell? =
             mainTableView.dequeueReusableCell(withIdentifier: "BookListCell") as? UITableViewCell
         if (cell == nil)

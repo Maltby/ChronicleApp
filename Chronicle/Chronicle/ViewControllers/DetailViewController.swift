@@ -16,7 +16,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
     var book = AWSBooksQueryResponse()
     
-//    TODO: Find way to watch for change to AVPlayerSharedInstance.sharedInstance.isPlaying within detailViewController, rather than having two variables that represent the same thing
     var isPlaying: Bool = false {
         didSet {
             if isPlaying == false {
@@ -37,6 +36,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         didSet{
             let currentSeconds : Float64 = CMTimeGetSeconds(currentTime)
             playheadSlider.setValue(Float(currentSeconds), animated: true)
+            // TODO : Automatically begin playing next chapter once first chapter ends
 //            if currentSeconds == maximumTime {
 //                chapterTableView.selectRow(at: NSIndexPath(row: currentChapter!, section: 0) as IndexPath, animated: true, scrollPosition: .middle)
 //                chapterTableView.delegate?.tableView!(chapterTableView, didSelectRowAt: (NSIndexPath(row: currentChapter!, section: 0) as IndexPath))
@@ -73,7 +73,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     @IBAction func handlePlayheadSliderTouchBegin(_ sender: UISlider) {
-//        player.pause()
         AVPlayerSharedInstance.sharedInstance.player.pause()
         stopTimer()
     }
@@ -86,8 +85,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         let targetTime = CMTimeMakeWithSeconds(seconds, 1)
         
         currentDurationLabel.text = self.stringFromTimeInterval(interval: Double(seconds))
-//        player.seek(to: targetTime)
-//        player.play()
         AVPlayerSharedInstance.sharedInstance.player.seek(to: targetTime)
         AVPlayerSharedInstance.sharedInstance.player.play()
         startTimer()
@@ -187,7 +184,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 } else if let url = task.result {
                     // TODO: put in a completion handler, often returns zero, create catch
                     let duration = AVPlayerSharedInstance.sharedInstance.streamBook(url: url)
-//                    UI Updates must run on main thread
                     DispatchQueue.main.async {
                         self.beginBook(duration: duration)
                     }
@@ -241,14 +237,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func beginBook(duration: CMTime) {
-//        let fullDuration : CMTime = (AVPlayerSharedInstance.sharedInstance.player.currentItem?.asset.duration)!
         maximumTime = CMTimeGetSeconds(duration)
         fullDurationLabel.text = self.stringFromTimeInterval(interval: maximumTime)
         playheadSlider.minimumValue = 0
         playheadSlider.maximumValue = Float(maximumTime)
         playheadSlider.isContinuous = true
         
-//        currentTime = player.currentTime()
         currentTime = AVPlayerSharedInstance.sharedInstance.player.currentTime()
         let currentSeconds : Float64 = CMTimeGetSeconds(currentTime)
         currentDurationLabel.text = self.stringFromTimeInterval(interval: currentSeconds)
@@ -338,8 +332,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        chapterTableView.selectRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, animated: true, scrollPosition: .middle)
-        
         if book == AVPlayerSharedInstance.sharedInstance.book {
             if AVPlayerSharedInstance.sharedInstance.currentChapter == indexPath.row + 1 {
                 print("same chapter selected")

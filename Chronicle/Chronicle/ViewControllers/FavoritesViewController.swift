@@ -75,7 +75,6 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         self.setupRightBarButtonItem()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
-        // Default theme settings.
         navigationController!.navigationBar.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         navigationController!.navigationBar.barTintColor = UIColor(red: 0xF5/255.0, green: 0x85/255.0, blue: 0x35/255.0, alpha: 1.0)
         navigationController!.navigationBar.tintColor = UIColor.white
@@ -153,7 +152,6 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             navigationItem.rightBarButtonItem!.title = NSLocalizedString("Sign-Out", comment: "Label for the logout button.")
-//            navigationItem.rightBarButtonItem!.action = #selector(MainViewController.handleLogout)
         }
     }
     
