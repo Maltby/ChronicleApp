@@ -1,9 +1,5 @@
 const AWS = require('aws-sdk')
 const {Client} = require('pg')
-
-// import passwords
-// var env = process.env.NODE_ENV || 'development';
-// var secrets = require('./secrets')[env];
 var secrets = require('./secrets');
 
 AWS.config.update({region: 'us-east-1'})
@@ -24,7 +20,7 @@ exports.handler = function(event, context, callback) {
             callback(err, null)
         }
         else {
-            // Query most recent 100 articles
+            // Query search term
             query(searchTerm, function(final) {
                 console.log(final)
                 callback(null, final)
@@ -40,7 +36,6 @@ function query(searchTerm, _callback) {
             console.log(err, err.stack)
             return _callback(err)
         }
-        // Obtain neccessary information to create client, then connect
         var endpoint = data.DBInstances[0].Endpoint.Address
         const client = new Client({
             user: secrets.user,

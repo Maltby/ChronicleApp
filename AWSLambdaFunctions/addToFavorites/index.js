@@ -1,15 +1,15 @@
 const AWS = require('aws-sdk')
 const {Client} = require('pg')
+var secrets = require('./secrets')
 
 AWS.config.update({region: 'us-east-1'})
 var rds = new AWS.RDS()
-
-var secrets = require('./secrets')
 
 // Connect to RDS, wait until DB is active
 exports.handler = function(event, context, callback) {
     console.log("received request")
 
+    // Ensure caller id was passed in
     if (event.id === undefined) {
         return callback("400 caller has no identity");
     }
@@ -66,7 +66,7 @@ function addToFavorites(id, bookId, addedCallback) {
                 console.log(err)
                 userDb.end()
                 return addedCallback(err, null)
-            } else if (res.rows[0]['exists'] === true) {
+            } /*If user is already in db*/ else if (res.rows[0]['exists'] === true) {
                 usersDb.query(`UPDATE usersmain SET favorites = favorites || ${bookId} WHERE id = '${id}' AND not(favorites @> array[${bookId}]::INT[])`, (err, res) => {
                     console.log('attemted query')
                     if (err){
@@ -79,7 +79,7 @@ function addToFavorites(id, bookId, addedCallback) {
                     usersDb.end()
                     addedCallback(null, '200')
                 })
-            } else {
+            } /*If user is not in db*/ else {
                 usersDb.query(`INSERT INTO usersmain (id, favorites) VALUES ('${id}', '{${bookId}}');`, (err, res) => {
                     console.log('attemted query')
                     if (err){

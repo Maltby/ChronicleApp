@@ -1,6 +1,3 @@
-// Create table (CREATE TABLE usersmain (id VARCHAR, favorites INT[]);)
-// Add a favorite (UPDATE usersmain SET favorites = favorites || 539582 WHERE id = 1005;)
-
 const AWS = require('aws-sdk')
 const {Client} = require('pg')
 
@@ -9,22 +6,22 @@ var rds = new AWS.RDS()
 
 var secrets = require('./secrets')
 
-// Connect to RDS, wait until DB is active
 exports.handler = function(event, context, callback) {
     console.log("received request")
 
+    //Ensure user id was passed to handler
     if (event.id === undefined) {
         return callback("400 caller has no identity");
     }
 
     var id = event.id
     console.log('cognitoIdentityId: ', id)
+    // Connect to RDS, wait until DB is active
     rds.waitFor('dBSnapshotAvailable', function(err, data) {
         if (err) {
             console.log(err, err.stack)
             return callback(err, null)
         }
-        // Query most recent 100 articles
         query(id, function(err, finalList) {
             if (err) {
                 console.log(err)
@@ -38,6 +35,7 @@ exports.handler = function(event, context, callback) {
 }
 
 function query(id, queryCallback) {
+    //Connect to users RDS database, 
     queryFavorites(id, function(err, favoritesList) {
         if (err) {
             console.log(err)
@@ -63,8 +61,8 @@ function queryFavorites(id, favListCallback) {
             console.log(err, err.stack)
             return favListCallback(err, null)
         }
-        // Obtain neccessary information to create client, then connect
         var endpoint = data.DBInstances[0].Endpoint.Address
+        // Pull keys from "secrets"
         const usersDb = new Client({
             user: secrets.chronicleusers.user,
             host: endpoint,
@@ -88,6 +86,7 @@ function queryFavorites(id, favListCallback) {
             var json = Array(res.rows[0]["favorites"])
             console.log(`result: ${json}`)
             usersDb.end()
+            // Return list of favorite book ids to queryItems
             favListCallback(null, json)
         })
     })
@@ -101,7 +100,6 @@ function queryItems(bookIdArray, bookListCallback) {
             console.log(err, err.stack)
             return bookListCallback(err, null)
         }
-        // Obtain neccessary information to create client, then connect
         var endpoint = data.DBInstances[0].Endpoint.Address
         const booksDb = new Client({
             user: secrets.booksmain.user,
@@ -113,7 +111,7 @@ function queryItems(bookIdArray, bookListCallback) {
         booksDb.connect()
         console.log('connected to booksDb')
 
-        //Query select list of books
+        //Query list of favorite books
         booksDb.query(`SELECT id, title, author, listens, s3audioLocation FROM booksmain WHERE id IN (${bookIdArray}) ORDER BY title DESC`, (err, res) => {
             console.log('attemted query')
             if (err){

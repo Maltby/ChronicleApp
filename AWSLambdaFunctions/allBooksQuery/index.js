@@ -1,20 +1,20 @@
 const AWS = require('aws-sdk')
 const {Client} = require('pg')
+var secrets = require('./secrets')
 
 AWS.config.update({region: 'us-east-1'})
 var rds = new AWS.RDS()
 
-var secrets = require('./secrets')
-
 // Connect to RDS, wait until DB is active
 exports.handler = function(event, context, callback) {
+    // Ensure db is available
     rds.waitFor('dBSnapshotAvailable', function(err, data) {
         if (err) {
             console.log(err, err.stack)
             callback(err, null)
         }
         else {
-            // Query most recent 100 articles
+            // Query top books
             query(function(final) {
                 console.log(final)
                 callback(null, final)
@@ -43,7 +43,7 @@ function query(_callback) {
             client.connect()
             console.log('connected to client')
 
-            // Query most recent 100 articles from postgres
+            // Query most recent 100 books from RDS instance
             client.query('SELECT id, title, author, listens, s3audiolocation, s3bookcoverlocation FROM booksmain WHERE available = TRUE ORDER BY listens DESC', (err, res) => {
                 console.log('attemted query')
                 if (err){
