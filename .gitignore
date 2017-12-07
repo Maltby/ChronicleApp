@@ -3,6 +3,7 @@
 .DS_Store?
 build/
 DerivedData/
+Pods/
 
 # Swift - AWS Keys
 awsconfiguration.json
