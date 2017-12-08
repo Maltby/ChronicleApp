@@ -1,8 +1,8 @@
 # Chronicle iOS
 
-** Chronicle is an iOS application for listening to copyright free audio books, backed by AWS. **
+**Chronicle is an iOS application for listening to copyright free audio books, backed by AWS.**
 
-** AWS services used include: **
+**AWS services used include:**
 * Lambda
 * iAM
 * RDS (PostgreSQL)
@@ -26,18 +26,18 @@ An AWS Cognito user pool was used on iOS to give users access to the API Gateway
 ### iOS
 cd to Chronicle/ and `pod install`.
 In order to build, valid AWS credentials must be input into Helpers/Secrets.swift: 
-	* Uncomment code within “SecretsExample.swift”.
-	* Rename “SecretsExample.swift” to “Secrets.swift”.
-	* Fill dictionaries with valid AWS credentials.
+* Uncomment code within “SecretsExample.swift”.
+* Rename “SecretsExample.swift” to “Secrets.swift”.
+* Fill dictionaries with valid AWS credentials.
 
 ### Python
 Scripts pass AWS CLI credentials to boto3, allowing for access to AWS services:
-	* Install the AWS CLI.
-	* Run `aws configure` and input valid credentials.
-	* Both will now use the credentials entered within the CLI to run scripts.
+* Install the AWS CLI.
+* Run `aws configure` and input valid credentials.
+* Both will now use the credentials entered within the CLI to run scripts.
 
 ### Node.js Lambda Functions
 cd into each lambda function and run `npm install`
 In order to run, “secrets.js” must be configured:
-	* Rename each “secretsExample.js” to “secrets.js”.
-	* Within each “secrets.js”, input valid AWS credentials.
+* Rename each “secretsExample.js” to “secrets.js”.
+* Within each “secrets.js”, input valid AWS credentials.
